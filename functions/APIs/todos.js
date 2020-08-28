@@ -46,3 +46,43 @@ exports.postOneTodo = (request, response) => {
       console.log(err);
     });
 };
+
+exports.deleteTodo = (request, response) => {
+  const document = db.doc(`/todos/${request.params.todoId}`);
+  document
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log(request.params.todoId);
+        return response
+          .status(404)
+          .json({ error: `Todo item not found - ${request.params.todoId}` });
+      }
+      return document.delete();
+    })
+    .then(() => {
+      response.json({ message: 'Delete successfull' });
+    })
+    .catch(err => {
+      console.log(err);
+      return response.status(500).json({ error: err.code });
+    });
+};
+
+exports.editTodo = (request, response) => {
+  if (request.body.todoId || request.body.createdAt) {
+    return response
+      .status(403)
+      .json({ message: 'Not allowed to edit the field' });
+  }
+  const document = db.collection('todos').doc(`${request.params.todoId}`);
+  document
+    .update(request.body)
+    .then(() => {
+      response.json({ message: 'Updated successfully' });
+    })
+    .catch(err => {
+      console.log(err);
+      return response.status(500).json({ error: err.code });
+    });
+};
