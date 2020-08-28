@@ -64,6 +64,4 @@ node_modules/
 # dotenv environment variables file
 .env
 
-/node_modules
-
 todoapp-ef974-firebase-adminsdk-56kma-d84d4871b9.json
