@@ -12,9 +12,9 @@ exports.getAllTodos = async (request, response) => {
         createdAt: doc.data().createdAt,
       });
     });
-    return response.json(todos);
+    return response.status(200).json(todos);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return response.status(500).json({ error: err.code });
   }
 };
@@ -38,10 +38,10 @@ exports.postOneTodo = async (request, response) => {
   try {
     const responseTodoItem = newTodoItem;
     responseTodoItem.id = result.id;
-    return response.json(responseTodoItem);
+    return response.status(200).json(responseTodoItem);
   } catch (err) {
     response.status(500).json({ error: 'Something went wrong' });
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -57,10 +57,10 @@ exports.deleteTodo = async (request, response) => {
   }
   try {
     let result = await document.delete();
-    response.json({ message: 'Delete successfull' });
-    return result;
+    console.info(`Deleted at ${JSON.stringify(result)}`);
+    return response.status(200).json({ message: 'Delete successfull' });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return response.status(500).json({ error: err.code });
   }
 };
@@ -74,10 +74,12 @@ exports.editTodo = async (request, response) => {
   try {
     const document = db.collection('todos').doc(`${request.params.todoId}`);
     let updatedTodo = await document.update(request.body);
-    response.json({ message: 'Updated successfully' });
-    return updatedTodo;
+    console.info(`Updated at ${JSON.stringify(updatedTodo)}`);
+    return response.status(200).json({
+      message: 'Updated successfully',
+    });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return response.status(500).json({ error: err.code });
   }
 };
