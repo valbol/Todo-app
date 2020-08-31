@@ -16,10 +16,17 @@ const {
   editTodo,
 } = require('./APIs/todos');
 
+const { loginUser, signUpUser } = require('./APIs/users');
+
+//CRUD
 app.get('/todos', getAllTodos);
 app.post('/todo', postOneTodo);
 app.delete('/todo/:todoId', deleteTodo);
 app.put('/todo/:todoId', editTodo);
+
+//Users
+app.post('/login', loginUser);
+app.post('/signup', signUpUser);
 
 // firebase cloud function - https://firebase.google.com/docs/functions/http-events
 exports.api = functions.https.onRequest(app);
