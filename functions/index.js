@@ -10,13 +10,14 @@ const app = require('express')();
 // });
 
 const {
-  getAllTodos,
-  postOneTodo,
-  deleteTodo,
-  editTodo,
+    getAllTodos,
+    postOneTodo,
+    deleteTodo,
+    editTodo,
 } = require('./APIs/todos');
 
-const { loginUser, signUpUser } = require('./APIs/users');
+const auth = require('./util/auth');
+const { loginUser, signUpUser, uploadProfilePhoto } = require('./APIs/users');
 
 //CRUD
 app.get('/todos', getAllTodos);
@@ -27,6 +28,7 @@ app.put('/todo/:todoId', editTodo);
 //Users
 app.post('/login', loginUser);
 app.post('/signup', signUpUser);
+app.post('/user/image', auth, uploadProfilePhoto);
 
 // firebase cloud function - https://firebase.google.com/docs/functions/http-events
 exports.api = functions.https.onRequest(app);
