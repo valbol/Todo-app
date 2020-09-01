@@ -22,6 +22,7 @@ const {
     signUpUser,
     uploadProfilePhoto,
     getUserDetail,
+    updateUserDetails,
 } = require('./APIs/users');
 
 //CRUD
@@ -35,6 +36,6 @@ app.post('/login', loginUser);
 app.post('/signup', signUpUser);
 app.post('/user/image', auth, uploadProfilePhoto);
 app.get('/user', auth, getUserDetail);
-
+app.post('/user', auth, updateUserDetails);
 // firebase cloud function - https://firebase.google.com/docs/functions/http-events
 exports.api = functions.https.onRequest(app);

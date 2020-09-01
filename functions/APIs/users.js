@@ -178,3 +178,16 @@ exports.getUserDetail = async(request, response) => {
         return response.status(500).json({ error: error.code });
     }
 };
+exports.updateUserDetails = async(request, response) => {
+    let document = db.collection('users').doc(`${request.user.username}`);
+    try {
+        const userDoc = await document.update(request.body);
+        console.info(`updated - ${userDoc}`);
+        return response.json({ message: 'Updated sucessfully' });
+    } catch (error) {
+        console.error(error);
+        return response.status(500).json({
+            message: 'Cannot Update the value',
+        });
+    }
+};
