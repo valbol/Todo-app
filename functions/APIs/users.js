@@ -6,6 +6,7 @@ const firebase = require('firebase');
 firebase.initializeApp(config);
 
 const { validateLoginData, validateSignUpData } = require('../util/validators');
+const { request } = require('http');
 
 //Login
 exports.loginUser = async(request, response) => {
@@ -162,4 +163,18 @@ exports.uploadProfilePhoto = (request, response) => {
     });
     console.info('almost finished');
     busboy.end(request.rawBody);
+};
+
+exports.getUserDetail = async(request, response) => {
+    let userData = {};
+    try {
+        const userDoc = await db.doc(`/users/${request.user.username}`).get();
+        if (userDoc.exists) {
+            userData.userCredentials = userDoc.data();
+        }
+        return response.json(userData);
+    } catch (error) {
+        console.error(error);
+        return response.status(500).json({ error: error.code });
+    }
 };
