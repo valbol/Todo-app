@@ -50,6 +50,7 @@ class login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     if (nextProps.UI.errors) {
       this.setState({
         errors: nextProps.UI.errors,
@@ -89,7 +90,11 @@ class login extends Component {
   };
   render() {
     const classes = this.props.classes;
-    const { errors, loading } = this.state;
+    console.log('========props===========');
+    console.log(this.props);
+    const { errors, loading, password } = this.state;
+    console.log('errors');
+    console.log(errors);
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -126,8 +131,8 @@ class login extends Component {
               type='password'
               id='password'
               autoComplete='current-password'
-              helperText={errors.password}
-              error={errors.password ? true : false}
+              helperText={'Password should be more than 5 chars'}
+              error={password.length < 5 ? true : false}
               onChange={this.handleChange}
             />{' '}
             <Button

@@ -7,7 +7,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 // import login from './pages/login';
-import loginContainer from './containers/loginContainer';
+import loginContainer from './containers/login/loginContainer';
+import sigunpContainer from './containers/signup/signupContainer';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path='/login' component={loginContainer} />
+            <Route exact path='/signup' component={sigunpContainer} />
             <Redirect to='/' />
           </Switch>
         </Router>
