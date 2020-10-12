@@ -13,7 +13,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import styles from '../../shared/styles';
+import { styles } from '../../shared/styles';
 
 const SignupComponent = props => {
   // console.log(props);
@@ -39,6 +39,7 @@ const SignupComponent = props => {
                 variant='outlined'
                 required
                 fullWidth
+                autoFocus
                 id='firstName'
                 label='First Name'
                 name='First Name'

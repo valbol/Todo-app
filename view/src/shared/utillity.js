@@ -41,3 +41,12 @@ export const checkValidity = (value, rules) => {
   console.log(isValid);
   return isValid;
 };
+
+export const authMiddleWare = history => {
+  const authToken = localStorage.getItem('AuthToken');
+  console.log('[authMiddleWare]', authToken);
+  if (authToken === null) {
+    console.log('[authMiddleWare - in If ]', authToken);
+    history.push('/login');
+  }
+};

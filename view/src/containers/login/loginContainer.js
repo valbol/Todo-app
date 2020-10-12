@@ -104,39 +104,20 @@ const LoginContainer = props => {
     try {
       const res = await axios.post('/login', userData);
       localStorage.setItem('AuthToken', `bearer ${res.data.token}`);
-      setState({ ...state, loading: false });
+      setLoading(false);
       props.history.push('/');
       console.log('login successfully');
     } catch (error) {
       console.log('===In errors --[catch]===');
       console.log(error.response);
-      setState({
-        email: {
-          value: '',
-          validation: {
-            required: true,
-            isEmail: true,
-          },
-          valid: false,
-          touched: false,
-        },
-        password: {
-          value: '',
-          validation: {
-            required: true,
-            minLength: 6,
-          },
-          valid: false,
-          touched: false,
-        },
+      const updatedState = updateObject(state, {
+        ...state,
+        password: updateObject(state['password'], { value: '' }),
       });
-
-      console.log('[In catch:]', error.response.data.general);
+      setState(updatedState);
       setErrors({ ...error, http: error.response.data.general });
       setLoading(false);
       setOpen(true);
-      // errors: state.errors.concat(error),
-      // loading: false,
     }
   };
 
@@ -148,7 +129,6 @@ const LoginContainer = props => {
   };
   return (
     <Provider value={state}>
-      {/* <h1>{props.title}</h1> */}
       <LoginComponent
         state={state}
         onChange={handleChange}

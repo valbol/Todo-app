@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import MuiAlert from '@material-ui/lab/Alert';
-import styles from '../../shared/styles';
+import { styles } from '../../shared/styles';
 
 const LoginComponent = props => {
   console.log('[component - props]');
@@ -24,13 +24,10 @@ const LoginComponent = props => {
   const open = props.open;
 
   const Alert = props => {
-    console.log('[In alert]', props);
+    console.log('[In alert]', typeof props);
     return <MuiAlert elevation={6} variant='filled' {...props} />;
+    // return <MuiAlert elevation={6} variant='filled' {...props} />;
   };
-
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -68,7 +65,6 @@ const LoginComponent = props => {
             label='Password'
             type='password'
             id='password'
-            autoFocus
             value={props.state.password.value}
             autoComplete='current-password'
             error={props.state.password.touched && !props.state.password.valid}
