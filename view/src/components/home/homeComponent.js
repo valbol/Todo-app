@@ -68,7 +68,7 @@ const HomeComponent = props => {
           </center>
           <Divider />
           <List>
-            <ListItem button key='Todo' onClick={props.loadTodoPage}>
+            <ListItem button key='Todo' onClick={props.onLoadTodo}>
               <ListItemIcon>
                 {' '}
                 <NotesIcon />{' '}
@@ -76,7 +76,7 @@ const HomeComponent = props => {
               <ListItemText primary='Todo' />
             </ListItem>
 
-            <ListItem button key='Account' onClick={props.loadAccountPage}>
+            <ListItem button key='Account' onClick={props.onLoadAccount}>
               <ListItemIcon>
                 {' '}
                 <AccountBoxIcon />{' '}
@@ -84,7 +84,7 @@ const HomeComponent = props => {
               <ListItemText primary='Account' />
             </ListItem>
 
-            <ListItem button key='Logout' onClick={props.logoutHandler}>
+            <ListItem button key='Logout' onClick={props.onLogout}>
               <ListItemIcon>
                 {' '}
                 <ExitToAppIcon />{' '}
@@ -93,8 +93,18 @@ const HomeComponent = props => {
             </ListItem>
           </List>
         </Drawer>
-        {/* TODO: return line bellow */}
-        <div>{props.state.render ? <Account /> : <Todo />}</div>
+        <div>
+          {props.state.render ? (
+            <Account
+              state={props.state}
+              profilePictureHandler={props.profilePictureHandler}
+              handleImageChange={props.handleImageChange}
+              handleChange={props.handleChange}
+            />
+          ) : (
+            <Todo state={props.state} />
+          )}
+        </div>
       </div>
     );
   }

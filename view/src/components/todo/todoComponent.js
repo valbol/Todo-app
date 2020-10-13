@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { todoStyles } from '../../shared/styles';
 
-const todo = props => {
+const TodoComponent = props => {
   console.log('[todo comp]');
   return (
     <main className={props.classes.content}>
@@ -14,4 +14,4 @@ const todo = props => {
   );
 };
 
-export default withStyles(todoStyles)(todo);
+export default withStyles(todoStyles)(TodoComponent);
