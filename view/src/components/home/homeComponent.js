@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Todo from '../../components/todo/todoComponent';
-import Account from '../../components/account/accountComponent';
+// import Account from '../../components/account/accountComponent';
+import Account from '../../containers/account/accountContainer';
 
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -27,8 +28,8 @@ const HomeComponent = props => {
   //   const { classes: props.classes } = props.props;
   console.log('[home compoenent]', props);
 
-  if (props.state.uiLoading === true) {
-    console.log('In if');
+  if (props.state.uiLoading) {
+    console.log('In if', props.state.uiLoading);
     return (
       <div className={props.classes.root}>
         {props.state.uiLoading && (
@@ -94,12 +95,14 @@ const HomeComponent = props => {
           </List>
         </Drawer>
         <div>
-          {props.state.render ? (
+          {console.log(props)}
+          {props.render ? (
             <Account
-              state={props.state}
-              profilePictureHandler={props.profilePictureHandler}
-              handleImageChange={props.handleImageChange}
-              handleChange={props.handleChange}
+
+            // state={props.state}
+            // profilePictureHandler={props.profilePictureHandler}
+            // handleImageChange={props.handleImageChange}
+            // handleChange={props.handleChange}
             />
           ) : (
             <Todo state={props.state} />

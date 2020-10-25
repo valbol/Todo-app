@@ -1,3 +1,6 @@
+import React from 'react';
+import { Divider } from '@material-ui/core';
+
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -44,9 +47,17 @@ export const checkValidity = (value, rules) => {
 
 export const authMiddleWare = history => {
   const authToken = localStorage.getItem('AuthToken');
-  console.log('[authMiddleWare]', authToken);
+  const date = new Date();
+  console.log('[authMiddleWare]', authToken + ' ' + date);
   if (authToken === null) {
-    console.log('[authMiddleWare - in If ]', authToken);
     history.push('/login');
   }
+};
+
+export const errorPage = () => {
+  return (
+    <div>
+      <h1>Ooops! Page not found! </h1>
+    </div>
+  );
 };

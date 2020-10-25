@@ -21,12 +21,23 @@ import { accountStyles } from '../../shared/styles';
 const AccountComponent = props => {
   console.log('[AccountComponent]', props);
 
-  const state = props.state;
-  const profilePictureHandler = props.profilePictureHandler;
-  const handleImageChange = props.handleImageChange;
-  const handleChange = props.handleChange;
-  const { classes, ...rest } = props;
-  if (state.uiLoading === true) {
+  // const state = props.state;
+  // const profilePictureHandler = props.profilePictureHandler;
+  // const imageChangeHandler = props.imageChangeHandler;
+  // const   = props.onChange;
+  const {
+    classes,
+    state,
+    profilePictureHandler,
+    updateFormValuesHandler,
+    imageChangeHandler,
+    onChange,
+    error,
+    render,
+    ...rest
+  } = props;
+
+  if (state.uiLoading) {
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
@@ -57,12 +68,11 @@ const AccountComponent = props => {
                   size='small'
                   startIcon={<CloudUploadIcon />}
                   className={classes.uploadButton}
-                  onClick={props.profilePictureHandler}
+                  onClick={profilePictureHandler}
                 >
                   Upload Photo
                 </Button>
-                <input type='file' onChange={props.handleImageChange} />
-
+                <input type='file' onChange={imageChangeHandler} />
                 {state.imageError ? (
                   <div className={classes.customError}>
                     {' '}
@@ -92,7 +102,7 @@ const AccountComponent = props => {
                     name='firstName'
                     variant='outlined'
                     value={state.firstName}
-                    onChange={handleChange}
+                    onChange={onChange}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -103,7 +113,7 @@ const AccountComponent = props => {
                     name='lastName'
                     variant='outlined'
                     value={state.lastName}
-                    onChange={handleChange}
+                    onChange={onChange}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -113,9 +123,9 @@ const AccountComponent = props => {
                     margin='dense'
                     name='email'
                     variant='outlined'
-                    disabled={true}
+                    disabled
                     value={state.email}
-                    onChange={props.handleChange}
+                    onChange={onChange}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -124,11 +134,10 @@ const AccountComponent = props => {
                     label='Phone Number'
                     margin='dense'
                     name='phone'
-                    type='number'
+                    pattern='[05][0-4]{1}[0-9]{7}'
                     variant='outlined'
-                    disabled={true}
-                    value={state.phoneNumber}
-                    onChange={props.handleChange}
+                    value={state.phone}
+                    onChange={onChange}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -137,10 +146,9 @@ const AccountComponent = props => {
                     label='User Name'
                     margin='dense'
                     name='userHandle'
-                    disabled={true}
+                    disabled
                     variant='outlined'
                     value={state.username}
-                    onChange={props.handleChange}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -151,7 +159,7 @@ const AccountComponent = props => {
                     name='country'
                     variant='outlined'
                     value={state.country}
-                    onChange={props.handleChange}
+                    onChange={onChange}
                   />
                 </Grid>
               </Grid>
@@ -165,7 +173,7 @@ const AccountComponent = props => {
           variant='contained'
           type='submit'
           className={classes.submitButton}
-          onClick={props.updateFormValues}
+          onClick={props.updateFormValuesHandler}
           disabled={
             state.buttonLoading ||
             !state.firstName ||
