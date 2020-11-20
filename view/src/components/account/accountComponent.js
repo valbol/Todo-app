@@ -75,7 +75,6 @@ const AccountComponent = props => {
                 <input type='file' onChange={imageChangeHandler} />
                 {state.imageError ? (
                   <div className={classes.customError}>
-                    {' '}
                     Wrong Image Format || Supported Format are PNG and JPG
                   </div>
                 ) : (

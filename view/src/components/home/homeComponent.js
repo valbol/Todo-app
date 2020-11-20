@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Todo from '../../components/todo/todoComponent';
+import Todo from '../../containers/todo/todoContainer';
 // import Account from '../../components/account/accountComponent';
 import Account from '../../containers/account/accountContainer';
 
@@ -105,7 +105,8 @@ const HomeComponent = props => {
             // handleChange={props.handleChange}
             />
           ) : (
-            <Todo state={props.state} />
+            // <Todo state={props.state} />
+            <Todo />
           )}
         </div>
       </div>

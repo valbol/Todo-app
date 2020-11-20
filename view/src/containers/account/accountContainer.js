@@ -35,7 +35,7 @@ const AccountContainer = props => {
   };
 
   const profilePictureHandler = event => {
-    console.log('event.target.files[0] ', event.target.files[0]);
+    // console.log('event.target.files[0] ', event.target.files[0]);
 
     event.preventDefault();
     setState({ ...state, uiLoading: true });

@@ -1,10 +1,10 @@
 module.exports = {
-  apiKey: 'AIzaSyAmsvGuTr-6fVwaHOrbRNM8WyPPfyTOtmM',
-  authDomain: 'todoapp-ef974.firebaseapp.com',
-  databaseURL: 'https://todoapp-ef974.firebaseio.com',
-  projectId: 'todoapp-ef974',
-  storageBucket: 'todoapp-ef974.appspot.com',
-  messagingSenderId: '477094706313',
-  appId: '1:477094706313:web:d594c48917a02ee9beda58',
-  measurementId: 'G-JSPSM2569E',
+  apiKey: 'AIzaSyDpUzAttH7aSjlLdOYedi3GJUYTuI-iV0I',
+  authDomain: 'todoapp-fe28d.firebaseapp.com',
+  databaseURL: 'https://todoapp-fe28d.firebaseio.com',
+  projectId: 'todoapp-fe28d',
+  storageBucket: 'todoapp-fe28d.appspot.com',
+  messagingSenderId: '995834323941',
+  appId: '1:995834323941:web:39205887748fbce514c50c',
+  measurementId: 'G-S7WVEH6HX5',
 };

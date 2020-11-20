@@ -1,5 +1,4 @@
 import React from 'react';
-import { Divider } from '@material-ui/core';
 
 export const updateObject = (oldObject, updatedProperties) => {
   return {
@@ -38,7 +37,7 @@ export const checkValidity = (value, rules) => {
   }
 
   if (rules.isPhone) {
-    const pattern = /^((\+|00)?972\-?|0)(([23489]|[57]\d)\-?\d{7})$/;
+    const pattern = /^((\+|00)?972-?|0)(([23489]|[57]\d)-?\d{7})$/;
     isValid = pattern.test(value) && isValid;
   }
   console.log(isValid);
