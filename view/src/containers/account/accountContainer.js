@@ -19,24 +19,22 @@ const AccountContainer = props => {
     imageError: '',
     image: '',
   });
-  const [error, setError] = useState('');
 
-  const handleChange = event => {
+  const changeHandler = event => {
     console.log(event.target);
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
-  const handleImageChange = event => {
+  const imageChangeHandler = event => {
     setState({ ...state, image: event.target.files[0] });
-    console.log(
-      'handleImageChange===event.target.files[0] ',
-      typeof event.target.files[0]
-    );
+    // console.log(
+    //   'handleImageChange===event.target.files[0] ',
+    //   typeof event.target.files[0]
+    // );
   };
 
   const profilePictureHandler = event => {
     // console.log('event.target.files[0] ', event.target.files[0]);
-
     event.preventDefault();
     setState({ ...state, uiLoading: true });
     authMiddleWare(props.history);
@@ -67,22 +65,16 @@ const AccountContainer = props => {
       });
   };
 
-  //   const mountedRef = useRef(true);
   async function fetchUserData() {
-    console.log('[useEffect]');
-
     authMiddleWare(props.history);
     const authToken = localStorage.getItem('AuthToken');
     if (!authToken) {
-      // isSubscribed = false;
       return;
     }
     axios.defaults.headers.common['Authorization'] = authToken;
     let isSubscribed = true;
     try {
       const response = await axios.get('/user');
-      console.log(response.data);
-      console.log('[isSubscribed]', isSubscribed);
       if (isSubscribed) {
         setState({
           ...state,
@@ -102,7 +94,6 @@ const AccountContainer = props => {
         props.history.push('/login');
       }
       console.log(error.response);
-      setError('Error in retrieving the data');
     }
     return () => (isSubscribed = false);
   }
@@ -111,7 +102,8 @@ const AccountContainer = props => {
     fetchUserData();
   }, []);
 
-  const updateFormValues = event => {
+  const updateFormValuesHandler = event => {
+    console.log('[account container] - updateFormValues');
     event.preventDefault();
     setState({ ...state, buttonLoading: true });
     authMiddleWare(props.history);
@@ -128,12 +120,14 @@ const AccountContainer = props => {
       .post('/user', formRequest)
       .then(() => {
         setState({ ...state, buttonLoading: false });
+        // callback function goes to the parent (homeContainer-homeComponent)
+        props.onDataChange(formRequest);
       })
       .catch(error => {
+        console.log(error);
         if (error.response.status === 403) {
           props.history.push('/login');
         }
-        console.log(error);
         setState({ ...state, buttonLoading: false });
       });
   };
@@ -141,10 +135,10 @@ const AccountContainer = props => {
   return (
     <AccountComponent
       state={state}
-      onChange={handleChange}
-      imageChangeHandler={handleImageChange}
-      profilePictureHandler={profilePictureHandler}
-      updateFormValuesHandler={updateFormValues}
+      onChange={changeHandler}
+      onImageChange={imageChangeHandler}
+      onProfilePicture={profilePictureHandler}
+      onUpdateFormValues={updateFormValuesHandler}
     />
   );
 };

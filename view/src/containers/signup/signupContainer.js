@@ -91,49 +91,6 @@ const SignupContainer = props => {
     confirmPassword: '',
   });
 
-  // console.log(props);
-
-  // TODO ==========================================
-  //   componentWillReceiveProps(nextProps) {
-  //     if (nextProps.UI.errors) {
-  //         this.setState({
-  //             errors: nextProps.UI.errors
-  //         });
-  //     }
-  // }
-
-  // const handleValidity = event => {
-  //   console.log(event.target.name);
-  //   const result = checkValidity(
-  //     event.target.value,
-  //     state[event.target.name].validation
-  //   );
-  // };
-
-  //Checks input validity once user enter data....
-  // useEffect(
-  //   event => {
-  //     //We add a short timer so it will not render imidetly but wait till user finish typing
-  //     const timer = setTimeout(() => {
-  //       console.log(state);
-  //       console.log('useEffect');
-  //       const result = checkValidity(
-  //         event.target.value,
-  //         state[event.target.name].validation
-  //       );
-  //     }, 500);
-  //     return () => {
-  //       clearTimeout(timer);
-  //     };
-  //   },
-  //   [state]
-  // );
-
-  // const handleChange = event => {
-  //   setState({ ...state, [event.target.name]: event.target.value });
-  //   console.log(event.target.value);
-  // };
-
   const handleChange = event => {
     console.log('[handle Change]', event.target.id, state[event.target.id]);
     const updatedState = updateObject(state, {

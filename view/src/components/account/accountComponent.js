@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+
 import {
   Card,
   CardActions,
@@ -18,19 +19,16 @@ import clsx from 'clsx';
 
 import { accountStyles } from '../../shared/styles';
 
+import todoContext from '../../shared/mycontext';
+
 const AccountComponent = props => {
   console.log('[AccountComponent]', props);
-
-  // const state = props.state;
-  // const profilePictureHandler = props.profilePictureHandler;
-  // const imageChangeHandler = props.imageChangeHandler;
-  // const   = props.onChange;
   const {
     classes,
     state,
-    profilePictureHandler,
-    updateFormValuesHandler,
-    imageChangeHandler,
+    onImageChange,
+    onProfilePicture,
+    onUpdateFormValues,
     onChange,
     error,
     render,
@@ -68,11 +66,11 @@ const AccountComponent = props => {
                   size='small'
                   startIcon={<CloudUploadIcon />}
                   className={classes.uploadButton}
-                  onClick={profilePictureHandler}
+                  onClick={onProfilePicture}
                 >
                   Upload Photo
                 </Button>
-                <input type='file' onChange={imageChangeHandler} />
+                <input type='file' onChange={onImageChange} />
                 {state.imageError ? (
                   <div className={classes.customError}>
                     Wrong Image Format || Supported Format are PNG and JPG
@@ -172,7 +170,7 @@ const AccountComponent = props => {
           variant='contained'
           type='submit'
           className={classes.submitButton}
-          onClick={props.updateFormValuesHandler}
+          onClick={onUpdateFormValues}
           disabled={
             state.buttonLoading ||
             !state.firstName ||

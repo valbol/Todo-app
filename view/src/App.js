@@ -6,11 +6,12 @@ import loginContainer from './containers/login/loginContainer';
 import sigunpContainer from './containers/signup/signupContainer';
 import homeContainer from './containers/home/homeContainer';
 import { errorPage } from './shared/utillity';
+import MyContext from './shared/mycontext';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <MyContext.Provider>
         <Router>
           <Switch>
             {/* <Route path='/' component={homeContainer} /> */}
@@ -20,7 +21,7 @@ class App extends Component {
             <Route component={errorPage} />
           </Switch>
         </Router>
-      </div>
+      </MyContext.Provider>
     );
   }
 }

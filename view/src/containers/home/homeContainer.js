@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import HomeComponent from '../../components/home/homeComponent';
 import axios from 'axios';
 import { authMiddleWare } from '../../shared/utillity';
+import todoContext from '../../shared/mycontext';
 
 const HomeContainer = props => {
   console.log('[HomeContainer]');
@@ -29,8 +30,16 @@ const HomeContainer = props => {
     localStorage.removeItem('AuthToken');
     props.history.push('/login');
   };
-
-  //   const mountedRef = useRef(true);
+  const dataCahnge = childData => {
+    setState({
+      ...state,
+      firstName: childData.firstName,
+      lastName: childData.lastName,
+      phoneNumber: childData.phoneNumber,
+      country: childData.country,
+      uiLoading: false,
+    });
+  };
 
   useEffect(() => {
     async function fetchProduct() {
@@ -69,19 +78,24 @@ const HomeContainer = props => {
       return () => (isSubscribed = false);
     }
     //ComponentDidMount
-
     fetchProduct();
   }, []);
 
+  const test = [{ name: 'test' }];
   return (
-    <HomeComponent
-      state={state}
-      render={render}
-      onLoadAccount={loadAccountPage}
-      onLoadTodo={loadTodoPage}
-      onLogout={logoutHandler}
-      error={error}
-    />
+    <>
+      <todoContext.Provider value={test}>
+        <HomeComponent
+          state={state}
+          render={render}
+          onLoadAccount={loadAccountPage}
+          onLoadTodo={loadTodoPage}
+          onLogout={logoutHandler}
+          onDataChange={dataCahnge}
+          error={error}
+        />
+      </todoContext.Provider>
+    </>
   );
 };
 

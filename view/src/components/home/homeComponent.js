@@ -29,7 +29,6 @@ const HomeComponent = props => {
   console.log('[home compoenent]', props);
 
   if (props.state.uiLoading) {
-    console.log('In if', props.state.uiLoading);
     return (
       <div className={props.classes.root}>
         {props.state.uiLoading && (
@@ -63,7 +62,6 @@ const HomeComponent = props => {
               className={props.classes.avatar}
             />
             <p>
-              {' '}
               {props.state.firstName} {props.state.lastName}
             </p>
           </center>
@@ -71,8 +69,7 @@ const HomeComponent = props => {
           <List>
             <ListItem button key='Todo' onClick={props.onLoadTodo}>
               <ListItemIcon>
-                {' '}
-                <NotesIcon />{' '}
+                <NotesIcon />
               </ListItemIcon>
               <ListItemText primary='Todo' />
             </ListItem>
@@ -98,15 +95,14 @@ const HomeComponent = props => {
           {console.log(props)}
           {props.render ? (
             <Account
-
-            // state={props.state}
-            // profilePictureHandler={props.profilePictureHandler}
-            // handleImageChange={props.handleImageChange}
-            // handleChange={props.handleChange}
+              state={props.state}
+              profilePictureHandler={props.profilePictureHandler}
+              handleImageChange={props.handleImageChange}
+              handleChange={props.handleChange}
+              onDataChange={props.onDataChange}
             />
           ) : (
-            // <Todo state={props.state} />
-            <Todo />
+            <Todo state={props.state} />
           )}
         </div>
       </div>

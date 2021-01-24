@@ -4,7 +4,6 @@ import axios from 'axios';
 import { checkValidity, updateObject } from '../../shared/utillity';
 
 //TODO: use this apiContext
-const { Provider, Consumer } = React.createContext();
 
 const LoginContainer = props => {
   const [state, setState] = useState({
@@ -128,19 +127,17 @@ const LoginContainer = props => {
     setOpen(false);
   };
   return (
-    <Provider value={state}>
-      <LoginComponent
-        state={state}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-        onError={handleError}
-        errors={errors}
-        loading={loading}
-        open={open}
-        onAlertClose={handleAlertClose}
-        // TODO: check where it is onErrors
-      />
-    </Provider>
+    <LoginComponent
+      state={state}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+      onError={handleError}
+      errors={errors}
+      loading={loading}
+      open={open}
+      onAlertClose={handleAlertClose}
+      // TODO: check where it is onErrors
+    />
   );
 };
 
