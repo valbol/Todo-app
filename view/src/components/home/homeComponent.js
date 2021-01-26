@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Todo from '../../containers/todo/todoContainer';
-// import Account from '../../components/account/accountComponent';
 import Account from '../../containers/account/accountContainer';
 
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
