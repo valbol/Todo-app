@@ -4,6 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 import {
   Card,
@@ -18,8 +20,6 @@ import {
 import clsx from 'clsx';
 
 import { accountStyles } from '../../shared/styles';
-
-import todoContext from '../../shared/mycontext';
 
 const AccountComponent = props => {
   console.log('[AccountComponent]', props);
@@ -70,14 +70,30 @@ const AccountComponent = props => {
                 >
                   Upload Photo
                 </Button>
-                <input type='file' onChange={onImageChange} />
+                {/* <input type='file' onChange={onImageChange} /> */}
+                <input
+                  style={{ display: 'none' }}
+                  accept='image/*'
+                  // className={classes.input}
+                  onChange={onImageChange}
+                  id='icon-button-file'
+                  type='file'
+                />
+                <label htmlFor='icon-button-file'>
+                  <IconButton
+                    color='primary'
+                    aria-label='upload picture'
+                    component='span'
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
                 {state.imageError ? (
                   <div className={classes.customError}>
-                    Wrong Image Format || Supported Format are PNG and JPG
+                    Wrong Image Format || Supported Format are PNG and JPG{' '}
+                    {state.imageError}
                   </div>
-                ) : (
-                  false
-                )}
+                ) : null}
               </div>
             </div>
             <div className={classes.progress} />
