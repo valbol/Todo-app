@@ -64,17 +64,16 @@ const AccountComponent = props => {
                   color='primary'
                   type='submit'
                   size='small'
+                  disabled={!state.imageLoaded}
                   startIcon={<CloudUploadIcon />}
                   className={classes.uploadButton}
                   onClick={onProfilePicture}
                 >
                   Upload Photo
                 </Button>
-                {/* <input type='file' onChange={onImageChange} /> */}
                 <input
                   style={{ display: 'none' }}
                   accept='image/*'
-                  // className={classes.input}
                   onChange={onImageChange}
                   id='icon-button-file'
                   type='file'

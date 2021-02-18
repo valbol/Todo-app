@@ -18,6 +18,7 @@ const AccountContainer = props => {
     buttonLoading: false,
     imageError: '',
     image: '',
+    imageLoaded: false,
   });
 
   const changeHandler = event => {
@@ -26,7 +27,7 @@ const AccountContainer = props => {
   };
 
   const imageChangeHandler = event => {
-    setState({ ...state, image: event.target.files[0] });
+    setState({ ...state, image: event.target.files[0], imageLoaded: true });
     // console.log(
     //   'handleImageChange===event.target.files[0] ',
     //   typeof event.target.files[0]

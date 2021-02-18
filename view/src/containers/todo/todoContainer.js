@@ -71,6 +71,7 @@ const TodoContainer = props => {
   };
   const deleteTodoHandler = data => {
     //TODO work on authMiddleWare - to check time expired
+    console.log('deleteTodoHandler data=', data);
     authMiddleWare(props.history);
     const authToken = localStorage.getItem('AuthToken');
     axios.defaults.headers.common['Authorization'] = authToken;
@@ -78,7 +79,6 @@ const TodoContainer = props => {
     console.log('todoID', todoId);
     axios
       .delete(`/todo/${todoId}`)
-      //   .delete(todoId)
       .then(() => {
         window.location.reload();
       })
@@ -99,6 +99,7 @@ const TodoContainer = props => {
   };
 
   const handleViewOpen = data => {
+    console.log('handleViewOpen data=', data);
     setState({
       ...state,
       title: data.todo.title,
@@ -108,6 +109,7 @@ const TodoContainer = props => {
   };
 
   const handleEditClickOpen = data => {
+    console.log('handleEditClickOpen data=', data);
     setState({
       ...state,
       title: data.todo.title,
@@ -133,7 +135,6 @@ const TodoContainer = props => {
   return (
     <TodoComponent
       state={state}
-      //   state={state}
       handleEditClickOpen={handleEditClickOpen}
       deleteTodoHandler={deleteTodoHandler}
       handleViewOpen={handleViewOpen}

@@ -11,15 +11,21 @@ import {
   Grid,
   Card,
   CardActions,
-  CircularProgress,
   CardContent,
+  CardHeader,
+  CircularProgress,
   Typography,
+  CardActionArea,
 } from '@material-ui/core';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DialogTitle from '../../components/todo/dialog';
 import CloseIcon from '@material-ui/icons/Close';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import { todoStyles } from '../../shared/styles';
 
@@ -35,8 +41,10 @@ const TodoComponent = props => {
     handleViewClose,
     handleSubmit,
     handleClickOpen,
+    handleViewOpen,
+    handleEditClickOpen,
+    deleteTodoHandler,
   } = props;
-  // const { viewOpen } = props.state.viewOpen;
 
   const DialogContent = withStyles(theme => ({
     viewRoot: {
@@ -44,14 +52,28 @@ const TodoComponent = props => {
     },
   }))(MuiDialogContent);
 
-  const Transition = React.forwardRef((props, ref) => {
-    console.log('[Transition]');
-    return <Slide direction='up' ref={ref} {...props} />;
-  });
-
+  const buttonsList = [
+    {
+      name: 'View',
+      icon: <VisibilityIcon />,
+      color: 'primary',
+      func: handleViewOpen,
+    },
+    {
+      name: 'Edit',
+      icon: <EditIcon />,
+      color: 'primary',
+      func: handleEditClickOpen,
+    },
+    {
+      name: 'Delete',
+      icon: <DeleteIcon />,
+      color: 'secondary',
+      func: deleteTodoHandler,
+    },
+  ];
   dayjs.extend(relativeTime);
   if (props.state.uiLoading) {
-    console.log('[IF-TODO]');
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
@@ -61,11 +83,9 @@ const TodoComponent = props => {
       </main>
     );
   } else {
-    console.log('[ELSE-TODO]');
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
         <IconButton
           // Add Todo button
           className={classes.floatingButton}
@@ -73,23 +93,15 @@ const TodoComponent = props => {
           aria-label='Add Todo'
           onClick={handleClickOpen}
         >
-          <AddCircleIcon
-            // Circle Add Button theme
-            style={{ fontSize: 50 }}
-          />
+          <AddCircleIcon style={{ fontSize: 80 }} />
         </IconButton>
-        <Dialog
-          fullScreen
-          open={props.state.open}
-          // onClose={props.handleClose}
-          // TransitionComponent={Transition}
-        >
+        <Dialog fullScreen open={props.state.open}>
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton
                 edge='start'
                 color='inherit'
-                onClick={props.handleClose}
+                onClick={handleClose}
                 aria-label='close'
               >
                 <CloseIcon />
@@ -100,9 +112,12 @@ const TodoComponent = props => {
                   : 'Create a new Todo'}
               </Typography>
               <Button
+                variant='outlined'
+                edge='start'
                 autoFocus
                 color='inherit'
                 onClick={handleSubmit}
+                fontWeight='fontWeightBold'
                 className={classes.submitButton}
               >
                 {props.state.buttonType === 'Edit' ? 'Save' : 'Submit'}
@@ -111,7 +126,7 @@ const TodoComponent = props => {
           </AppBar>
           <div className={classes.todoItem}>
             <form className={classes.form} noValidate>
-              <Grid container spacing={2}>
+              <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <TextField
                     variant='outlined'
@@ -149,44 +164,46 @@ const TodoComponent = props => {
             </form>
           </div>
         </Dialog>
-
-        <Grid container spacing={2}>
+        <Grid
+          className={classes.gridContainer}
+          container
+          spacing={3}
+          justify='flex-end'
+          alignItems='center'
+          justify-content='space-around'
+        >
           {props.state.todos.map(todo => (
-            <Grid item xs={12} sm={6} key={todo.todoId}>
-              <Card className={classes.root} variant='outlined'>
+            <Grid item sm={12} md={6} key={todo.todoId}>
+              <Card
+                className={classes.root}
+                // raised
+                variant='outlined'
+              >
+                <CardHeader
+                  title={todo.title}
+                  subheader={dayjs(todo.createdAt).fromNow()}
+                ></CardHeader>
                 <CardContent>
-                  <Typography variant='h5' component='h2'>
-                    {todo.title}
-                  </Typography>
-                  <Typography className={classes.pos} color='textSecondary'>
-                    {dayjs(todo.createdAt).fromNow()}
-                  </Typography>
-                  <Typography variant='body2' component='p'>
+                  <Typography variant='h6' component='p'>
                     {`${todo.body.substring(0, 65)}`}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button
-                    size='small'
-                    color='primary'
-                    onClick={() => props.handleViewOpen({ todo })}
-                  >
-                    View
-                  </Button>
-                  <Button
-                    size='small'
-                    color='primary'
-                    onClick={() => props.handleEditClickOpen({ todo })}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    size='small'
-                    color='primary'
-                    onClick={() => props.deleteTodoHandler({ todo })}
-                  >
-                    Delete
-                  </Button>
+                  {buttonsList.map(item => {
+                    const { name, icon, color, func } = item;
+                    return (
+                      <Button
+                        key={name}
+                        size='small'
+                        color={color}
+                        variant='outlined'
+                        startIcon={icon}
+                        onClick={() => func({ todo })}
+                      >
+                        {name}
+                      </Button>
+                    );
+                  })}
                 </CardActions>
               </Card>
             </Grid>
@@ -209,7 +226,7 @@ const TodoComponent = props => {
               id='todoDetails'
               name='body'
               multiline
-              readonly
+              readOnly
               rows={1}
               rowsMax={25}
               value={props.state.body}

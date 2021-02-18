@@ -1,3 +1,5 @@
+import { fade } from '@material-ui/core/styles';
+
 export const styles = theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -21,41 +23,83 @@ export const styles = theme => ({
   },
 });
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 export const homeStyles = theme => ({
   root: {
     display: 'flex',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth + 2}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  hide: {
+    display: 'none',
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    whiteSpace: 'nowrap',
   },
-  drawerPaper: {
+  drawerOpen: {
     width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9) + 1,
+    },
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
   avatar: {
-    height: 110,
+    height: 100,
     width: 100,
-    flexShrink: 0,
-    flexGrow: 0,
+    display: 'flex',
+    alignItems: 'center',
     marginTop: 20,
+    marginDown: 20,
   },
-  uiProgess: {
-    position: 'fixed',
-    zIndex: '1000',
-    height: '31px',
-    width: '31px',
-    left: '50%',
-    top: '35%',
+  avatar_samll: {
+    height: 65,
+    width: 65,
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 50,
+    margin: 8,
   },
-  toolbar: theme.mixins.toolbar,
 });
 
 export const accountStyles = theme => ({
@@ -93,8 +137,12 @@ export const accountStyles = theme => ({
     position: 'absolute',
   },
   uploadButton: {
-    marginLeft: '8px',
-    margin: theme.spacing(1),
+    backgroundColor: '#35baf6',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: '8px',
+      margin: theme.spacing(1),
+      backgroundColor: 'white',
+    },
   },
   customError: {
     color: 'red',
@@ -109,7 +157,7 @@ export const accountStyles = theme => ({
 export const todoStyles = theme => ({
   // .., // Existing CSS elements
   title: {
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(3),
     flex: 1,
   },
   submitButton: {
@@ -119,6 +167,7 @@ export const todoStyles = theme => ({
     position: 'absolute',
     top: 14,
     right: 10,
+    marginRight: theme.spacing(10),
   },
   floatingButton: {
     position: 'fixed',
@@ -131,8 +180,15 @@ export const todoStyles = theme => ({
     marginTop: theme.spacing(3),
   },
   toolbar: theme.mixins.toolbar,
+  gridContainer: {
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '10px',
+  },
   root: {
-    minWidth: 470,
+    minWidth: 200,
+    paddingLeft: '20px',
+    paddingRight: '20px',
   },
   todoItem: {
     margin: theme.spacing(7),

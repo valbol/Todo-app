@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Todo from '../../containers/todo/todoContainer';
 import Account from '../../containers/account/accountContainer';
+import clsx from 'clsx';
 
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NotesIcon from '@material-ui/icons/Notes';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import { useTheme } from '@material-ui/core/styles';
+import { homeStyles } from '../../shared/styles';
+
 import {
   Avatar,
   Drawer,
@@ -21,11 +30,27 @@ import {
   withStyles,
   CircularProgress,
 } from '@material-ui/core/';
-import { homeStyles } from '../../shared/styles';
 
 const HomeComponent = props => {
-  //   const { classes: props.classes } = props.props;
   console.log('[home compoenent]', props);
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  const itemsList = [
+    { text: 'Todo', icon: <NotesIcon />, operation: props.onLoadTodo },
+    {
+      text: 'Account',
+      icon: <AccountBoxIcon />,
+      operation: props.onLoadAccount,
+    },
+    { text: 'Logout', icon: <ExitToAppIcon />, operation: props.onLogout },
+  ];
 
   if (props.state.uiLoading) {
     return (
@@ -39,59 +64,87 @@ const HomeComponent = props => {
     return (
       <div className={props.classes.root}>
         <CssBaseline />
-        <AppBar position='fixed' className={props.classes.appBar}>
+        <AppBar
+          position='fixed'
+          className={clsx(props.classes.appBar, {
+            [props.classes.appBarShift]: open,
+          })}
+        >
           <Toolbar>
+            <IconButton
+              color='inherit'
+              aria-label='open drawer'
+              onClick={handleDrawerOpen}
+              edge='start'
+              className={clsx(props.classes.menuButton, {
+                [props.classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
             <Typography variant='h6' noWrap>
-              TodoApp
+              TODO app
             </Typography>
           </Toolbar>
         </AppBar>
         <Drawer
-          className={props.classes.drawer}
           variant='permanent'
+          className={clsx(props.classes.drawer, {
+            [props.classes.drawerOpen]: open,
+            [props.classes.drawerClose]: !open,
+          })}
           classes={{
-            paper: props.classes.drawerPaper,
+            paper: clsx({
+              [props.classes.drawerOpen]: open,
+              [props.classes.drawerClose]: !open,
+            }),
           }}
         >
-          <div className={props.classes.toolbar} />
+          <div className={props.classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
           <Divider />
+
+          <div className={props.classes.toolbar} />
           <center>
-            <Avatar
-              src={props.state.profilePicture}
-              className={props.classes.avatar}
-            />
-            <p>
-              {props.state.firstName} {props.state.lastName}
-            </p>
+            {open ? (
+              <>
+                <Avatar
+                  src={props.state.profilePicture}
+                  className={props.classes.avatar}
+                />
+                <p>
+                  {props.state.firstName} {props.state.lastName}
+                </p>
+              </>
+            ) : (
+              <Avatar
+                src={props.state.profilePicture}
+                className={props.classes.avatar_samll}
+                style={{}}
+              />
+            )}
           </center>
           <Divider />
           <List>
-            <ListItem button key='Todo' onClick={props.onLoadTodo}>
-              <ListItemIcon>
-                <NotesIcon />
-              </ListItemIcon>
-              <ListItemText primary='Todo' />
-            </ListItem>
-
-            <ListItem button key='Account' onClick={props.onLoadAccount}>
-              <ListItemIcon>
-                {' '}
-                <AccountBoxIcon />{' '}
-              </ListItemIcon>
-              <ListItemText primary='Account' />
-            </ListItem>
-
-            <ListItem button key='Logout' onClick={props.onLogout}>
-              <ListItemIcon>
-                {' '}
-                <ExitToAppIcon />{' '}
-              </ListItemIcon>
-              <ListItemText primary='Logout' />
-            </ListItem>
+            {itemsList.map(item => {
+              const { text, icon, operation } = item;
+              return (
+                <ListItem button key={text} onClick={operation}>
+                  <ListItemIcon>{icon && icon}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              );
+            })}
           </List>
         </Drawer>
         <div>
-          {console.log(props)}
           {props.render ? (
             <Account
               state={props.state}
