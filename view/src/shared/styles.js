@@ -162,12 +162,6 @@ export const accountStyles = theme => ({
     fontSize: '0.8rem',
     marginTop: 10,
   },
-  submitButton: {
-    // marginTop: '10px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
 
 export const todoStyles = theme => ({
