@@ -94,12 +94,7 @@ const TodoComponent = props => {
           aria-label='Add Todo'
           onClick={handleClickOpen}
         >
-          <AddCircleIcon
-            className={classes.circleButton}
-            // style={{
-            //   fontSize: 80,
-            // }}
-          />
+          <AddCircleIcon className={classes.circleButton} />
         </IconButton>
         <Dialog fullScreen open={props.state.open}>
           <AppBar className={classes.appBar}>

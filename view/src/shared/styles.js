@@ -126,7 +126,7 @@ export const accountStyles = theme => ({
     display: 'flex',
   },
   avatar: {
-    height: 110,
+    height: 100,
     width: 100,
     flexShrink: 0,
     flexGrow: 0,
@@ -150,11 +150,11 @@ export const accountStyles = theme => ({
     position: 'absolute',
   },
   uploadButton: {
-    backgroundColor: '#35baf6',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: '8px',
-      margin: theme.spacing(1),
-      backgroundColor: 'white',
+    marginLeft: '8px',
+    margin: theme.spacing(2),
+    backgroundColor: 'white',
+    [theme.breakpoints.down('xs')]: {
+      backgroundColor: '#35baf6',
     },
   },
   customError: {
@@ -163,7 +163,10 @@ export const accountStyles = theme => ({
     marginTop: 10,
   },
   submitButton: {
-    marginTop: '10px',
+    // marginTop: '10px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

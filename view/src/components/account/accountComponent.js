@@ -15,6 +15,7 @@ import {
   Button,
   Grid,
   TextField,
+  Box,
 } from '@material-ui/core';
 
 import clsx from 'clsx';
@@ -24,36 +25,32 @@ import { accountStyles } from '../../shared/styles';
 const AccountComponent = props => {
   console.log('[AccountComponent]', props);
   const {
-    classes,
     state,
     onImageChange,
     onProfilePicture,
     onUpdateFormValues,
     onChange,
-    error,
-    render,
-    ...rest
   } = props;
 
   if (state.uiLoading) {
     return (
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+      <main className={props.classes.content}>
+        <div className={props.classes.toolbar} />
         {state.uiLoading && (
-          <CircularProgress size={150} className={classes.uiProgess} />
+          <CircularProgress size={100} className={props.classes.uiProgess} />
         )}
       </main>
     );
   } else {
     return (
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Card {...rest} className={clsx(classes.root, classes)}>
+      <main className={props.classes.content}>
+        <div className={props.classes.toolbar} />
+        <Card className={clsx(props.classes.root, props.classes)}>
           <CardContent>
-            <div className={classes.details}>
+            <div className={props.classes.details}>
               <div>
                 <Typography
-                  className={classes.locationText}
+                  className={props.classes.locationText}
                   gutterBottom
                   variant='h4'
                 >
@@ -66,7 +63,7 @@ const AccountComponent = props => {
                   size='small'
                   disabled={!state.imageLoaded}
                   startIcon={<CloudUploadIcon />}
-                  className={classes.uploadButton}
+                  className={props.classes.uploadButton}
                   onClick={onProfilePicture}
                 >
                   Upload Photo
@@ -88,21 +85,19 @@ const AccountComponent = props => {
                   </IconButton>
                 </label>
                 {state.imageError ? (
-                  <div className={classes.customError}>
+                  <div className={props.classes.customError}>
                     Wrong Image Format || Supported Format are PNG and JPG{' '}
                     {state.imageError}
                   </div>
                 ) : null}
               </div>
             </div>
-            <div className={classes.progress} />
+            <div className={props.classes.progress} />
           </CardContent>
           <Divider />
         </Card>
-
-        <br />
-        <Card {...rest} className={clsx(classes.root, classes)}>
-          <form autoComplete='off' noValidate>
+        <Card className={clsx(props.classes.root, props.classes)}>
+          <form autoComplete='on' noValidate>
             <Divider />
             <CardContent>
               <Grid container spacing={3}>
@@ -177,27 +172,34 @@ const AccountComponent = props => {
               </Grid>
             </CardContent>
             <Divider />
+            <Divider />
             <CardActions />
           </form>
         </Card>
-        <Button
-          color='primary'
-          variant='contained'
-          type='submit'
-          className={classes.submitButton}
-          onClick={onUpdateFormValues}
-          disabled={
-            state.buttonLoading ||
-            !state.firstName ||
-            !state.lastName ||
-            !state.country
-          }
+        <Box
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          marginTop='10px'
         >
-          Save details
-          {state.buttonLoading && (
-            <CircularProgress size={30} className={classes.progess} />
-          )}
-        </Button>
+          <Button
+            color='primary'
+            variant='contained'
+            type='submit'
+            onClick={onUpdateFormValues}
+            disabled={
+              state.buttonLoading ||
+              !state.firstName ||
+              !state.lastName ||
+              !state.country
+            }
+          >
+            Save details
+            {state.buttonLoading && (
+              <CircularProgress size={30} className={props.classes.progess} />
+            )}
+          </Button>
+        </Box>
       </main>
     );
   }
