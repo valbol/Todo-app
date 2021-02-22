@@ -31,6 +31,7 @@ import { todoStyles } from '../../shared/styles';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import Icon from '@material-ui/core/Icon';
 
 const TodoComponent = props => {
   console.log('[todo comp]', props);
@@ -93,7 +94,12 @@ const TodoComponent = props => {
           aria-label='Add Todo'
           onClick={handleClickOpen}
         >
-          <AddCircleIcon style={{ fontSize: 80 }} />
+          <AddCircleIcon
+            className={classes.circleButton}
+            // style={{
+            //   fontSize: 80,
+            // }}
+          />
         </IconButton>
         <Dialog fullScreen open={props.state.open}>
           <AppBar className={classes.appBar}>
@@ -173,16 +179,16 @@ const TodoComponent = props => {
           justify-content='space-around'
         >
           {props.state.todos.map(todo => (
-            <Grid item sm={12} md={6} key={todo.todoId}>
+            <Grid item xs={12} md={6} key={todo.todoId}>
               <Card
                 className={classes.root}
                 // raised
                 variant='outlined'
               >
-                <CardHeader
+                <CardContent
                   title={todo.title}
                   subheader={dayjs(todo.createdAt).fromNow()}
-                ></CardHeader>
+                ></CardContent>
                 <CardContent>
                   <Typography variant='h6' component='p'>
                     {`${todo.body.substring(0, 65)}`}

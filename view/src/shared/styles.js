@@ -1,5 +1,3 @@
-import { fade } from '@material-ui/core/styles';
-
 export const styles = theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -24,6 +22,7 @@ export const styles = theme => ({
 });
 
 const drawerWidth = 250;
+const drawSmall = 1.75;
 export const homeStyles = theme => ({
   root: {
     display: 'flex',
@@ -38,6 +37,9 @@ export const homeStyles = theme => ({
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth + 2}px)`,
+    [theme.breakpoints.up('xs')]: {
+      width: `calc(100% - ${drawerWidth * drawSmall + 2}px)`,
+    },
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -56,6 +58,9 @@ export const homeStyles = theme => ({
   },
   drawerOpen: {
     width: drawerWidth,
+    [theme.breakpoints.up('xs')]: {
+      width: drawerWidth * drawSmall,
+    },
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -99,6 +104,14 @@ export const homeStyles = theme => ({
     alignItems: 'center',
     marginTop: 50,
     margin: 8,
+    [theme.breakpoints.up('xs')]: {
+      height: 45,
+      width: 45,
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: 50,
+      margin: 8,
+    },
   },
 });
 
@@ -170,9 +183,28 @@ export const todoStyles = theme => ({
     marginRight: theme.spacing(10),
   },
   floatingButton: {
-    position: 'fixed',
     bottom: 0,
-    right: 0,
+    right: 15,
+    position: 'fixed',
+    margin: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: theme.zIndex.drawer + 10,
+      right: 0,
+      // backgroundColor: 'black',
+      // fontSize: 20,
+      // fontSize: 'small',
+    },
+  },
+  circleButton: {
+    fontSize: 80,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 50,
+      // backgroundColor: 'black',
+      zIndex: theme.zIndex.drawer + 10,
+    },
   },
   form: {
     width: '98%',

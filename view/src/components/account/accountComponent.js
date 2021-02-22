@@ -106,7 +106,7 @@ const AccountComponent = props => {
             <Divider />
             <CardContent>
               <Grid container spacing={3}>
-                <Grid item md={6} xs={12}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
                     label='First name'
