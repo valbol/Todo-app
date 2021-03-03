@@ -79,7 +79,7 @@ const TodoComponent = props => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.state.uiLoading && (
-          <CircularProgress size={150} className={classes.uiProgess} />
+          <CircularProgress size={100} className={classes.uiProgress} />
         )}
       </main>
     );

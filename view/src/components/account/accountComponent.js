@@ -37,7 +37,7 @@ const AccountComponent = props => {
       <main className={props.classes.content}>
         <div className={props.classes.toolbar} />
         {state.uiLoading && (
-          <CircularProgress size={100} className={props.classes.uiProgess} />
+          <CircularProgress size={100} className={props.classes.uiProgress} />
         )}
       </main>
     );
@@ -196,7 +196,10 @@ const AccountComponent = props => {
           >
             Save details
             {state.buttonLoading && (
-              <CircularProgress size={30} className={props.classes.progess} />
+              <CircularProgress
+                size={100}
+                className={props.classes.uiProgress}
+              />
             )}
           </Button>
         </Box>

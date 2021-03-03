@@ -22,7 +22,7 @@ export const styles = theme => ({
 });
 
 const drawerWidth = 250;
-const drawSmall = 1.75;
+const drawSmall = 1.6;
 export const homeStyles = theme => ({
   root: {
     display: 'flex',
@@ -121,7 +121,7 @@ export const accountStyles = theme => ({
     padding: theme.spacing(3),
   },
   toolbar: theme.mixins.toolbar,
-  root: {},
+  root: { minWidth: 200 },
   details: {
     display: 'flex',
   },
@@ -138,7 +138,7 @@ export const accountStyles = theme => ({
     position: 'absolute',
     top: '50%',
   },
-  uiProgess: {
+  uiProgress: {
     position: 'fixed',
     zIndex: '1000',
     height: '31px',
@@ -146,15 +146,12 @@ export const accountStyles = theme => ({
     left: '50%',
     top: '35%',
   },
-  progess: {
-    position: 'absolute',
-  },
   uploadButton: {
     marginLeft: '8px',
     margin: theme.spacing(2),
     backgroundColor: 'white',
     [theme.breakpoints.down('xs')]: {
-      backgroundColor: '#35baf6',
+      backgroundColor: '#b3e5fc',
     },
   },
   customError: {
@@ -165,7 +162,6 @@ export const accountStyles = theme => ({
 });
 
 export const todoStyles = theme => ({
-  // .., // Existing CSS elements
   title: {
     marginLeft: theme.spacing(3),
     flex: 1,
@@ -178,29 +174,25 @@ export const todoStyles = theme => ({
     top: 14,
     right: 10,
     marginRight: theme.spacing(10),
+
+    [theme.breakpoints.down('xs')]: {
+      marginRight: theme.spacing(2),
+      top: 10,
+    },
   },
   floatingButton: {
-    bottom: 0,
+    bottom: 5,
     right: 15,
     position: 'fixed',
     margin: 'auto',
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: theme.zIndex.drawer + 10,
-      right: 0,
-      // backgroundColor: 'black',
-      // fontSize: 20,
-      // fontSize: 'small',
-    },
+    zIndex: theme.zIndex.drawer + 10,
   },
   circleButton: {
     fontSize: 80,
     [theme.breakpoints.down('sm')]: {
       fontSize: 50,
-      // backgroundColor: 'black',
       zIndex: theme.zIndex.drawer + 10,
+      // paddingLeft: '0px',
     },
   },
   form: {
@@ -216,8 +208,6 @@ export const todoStyles = theme => ({
   },
   root: {
     minWidth: 200,
-    paddingLeft: '20px',
-    paddingRight: '20px',
   },
   todoItem: {
     margin: theme.spacing(7),
@@ -231,7 +221,7 @@ export const todoStyles = theme => ({
   pos: {
     marginBottom: 12,
   },
-  uiProgess: {
+  uiProgress: {
     position: 'fixed',
     zIndex: '1000',
     height: '31px',
