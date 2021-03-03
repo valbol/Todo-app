@@ -97,7 +97,7 @@ export const homeStyles = theme => ({
     marginTop: 20,
     marginDown: 20,
   },
-  avatar_samll: {
+  avatar_small: {
     height: 65,
     width: 65,
     display: 'flex',
@@ -122,27 +122,10 @@ export const accountStyles = theme => ({
   details: {
     display: 'flex',
   },
-  avatar: {
-    height: 100,
-    width: 100,
-    flexShrink: 0,
-    flexGrow: 0,
-  },
   locationText: {
     paddingLeft: '15px',
   },
-  buttonProperty: {
-    position: 'absolute',
-    top: '50%',
-  },
-  uiProgress: {
-    position: 'fixed',
-    zIndex: '1000',
-    height: '31px',
-    width: '31px',
-    left: '50%',
-    top: '35%',
-  },
+
   uploadButton: {
     marginLeft: '8px',
     margin: theme.spacing(2),
@@ -155,6 +138,14 @@ export const accountStyles = theme => ({
     color: 'red',
     fontSize: '0.8rem',
     marginTop: 10,
+  },
+  uiProgress: {
+    position: 'fixed',
+    zIndex: '1000',
+    height: '31px',
+    width: '31px',
+    left: '50%',
+    top: '35%',
   },
 });
 

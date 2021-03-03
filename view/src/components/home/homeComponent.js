@@ -126,7 +126,7 @@ const HomeComponent = props => {
             ) : (
               <Avatar
                 src={props.state.profilePicture}
-                className={props.classes.avatar_samll}
+                className={props.classes.avatar_small}
                 style={{}}
               />
             )}

@@ -25,6 +25,7 @@ import { accountStyles } from '../../shared/styles';
 const AccountComponent = props => {
   console.log('[AccountComponent]', props);
   const {
+    classes,
     state,
     onImageChange,
     onProfilePicture,
@@ -34,23 +35,23 @@ const AccountComponent = props => {
 
   if (state.uiLoading) {
     return (
-      <main className={props.classes.content}>
-        <div className={props.classes.toolbar} />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
         {state.uiLoading && (
-          <CircularProgress size={100} className={props.classes.uiProgress} />
+          <CircularProgress size={100} className={classes.uiProgress} />
         )}
       </main>
     );
   } else {
     return (
-      <main className={props.classes.content}>
-        <div className={props.classes.toolbar} />
-        <Card className={clsx(props.classes.root, props.classes)}>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Card className={clsx(classes.root, classes)}>
           <CardContent>
-            <div className={props.classes.details}>
+            <div className={classes.details}>
               <div>
                 <Typography
-                  className={props.classes.locationText}
+                  className={classes.locationText}
                   gutterBottom
                   variant='h4'
                 >
@@ -63,7 +64,7 @@ const AccountComponent = props => {
                   size='small'
                   disabled={!state.imageLoaded}
                   startIcon={<CloudUploadIcon />}
-                  className={props.classes.uploadButton}
+                  className={classes.uploadButton}
                   onClick={onProfilePicture}
                 >
                   Upload Photo
@@ -85,18 +86,17 @@ const AccountComponent = props => {
                   </IconButton>
                 </label>
                 {state.imageError ? (
-                  <div className={props.classes.customError}>
+                  <div className={classes.customError}>
                     Wrong Image Format || Supported Format are PNG and JPG{' '}
                     {state.imageError}
                   </div>
                 ) : null}
               </div>
             </div>
-            <div className={props.classes.progress} />
           </CardContent>
           <Divider />
         </Card>
-        <Card className={clsx(props.classes.root, props.classes)}>
+        <Card className={clsx(classes.root, classes)}>
           <form autoComplete='on' noValidate>
             <Divider />
             <CardContent>
@@ -196,10 +196,7 @@ const AccountComponent = props => {
           >
             Save details
             {state.buttonLoading && (
-              <CircularProgress
-                size={100}
-                className={props.classes.uiProgress}
-              />
+              <CircularProgress size={100} className={classes.uiProgress} />
             )}
           </Button>
         </Box>
