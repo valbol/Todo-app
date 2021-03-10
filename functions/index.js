@@ -2,24 +2,27 @@ const functions = require('firebase-functions');
 
 const app = require('express')();
 
+let cors = require('cors');
+
 const auth = require('./util/auth');
 
 const {
-    getAllTodos,
-    getOneTodo,
-    postOneTodo,
-    deleteTodo,
-    editTodo,
+  getAllTodos,
+  getOneTodo,
+  postOneTodo,
+  deleteTodo,
+  editTodo,
 } = require('./APIs/todos');
 
 const {
-    loginUser,
-    signUpUser,
-    uploadProfilePhoto,
-    getUserDetail,
-    updateUserDetails,
+  loginUser,
+  signUpUser,
+  uploadProfilePhoto,
+  getUserDetail,
+  updateUserDetails,
 } = require('./APIs/users');
 
+app.use(cors());
 //CRUD - TODOs
 app.get('/todos', auth, getAllTodos);
 app.get('/todo/:todoId', auth, getOneTodo);

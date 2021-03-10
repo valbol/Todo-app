@@ -6,15 +6,18 @@ const firebase = require('firebase');
 firebase.initializeApp(config);
 
 const { validateLoginData, validateSignUpData } = require('../util/validators');
-const { request } = require('http');
+// const { request } = require('http');
 
 //Login
 exports.loginUser = async (request, response) => {
+  console.info(`the request is ${request}`);
   const user = {
     email: request.body.email,
     password: request.body.password,
   };
+  console.info(`the user is ${user}`);
   const { valid, errors } = validateLoginData(user);
+  console.info(`valid is=${valid} ; error is=${errors}`);
   if (!valid) return response.status(400).json(errors);
   try {
     const auth = await firebase
@@ -22,6 +25,7 @@ exports.loginUser = async (request, response) => {
       .signInWithEmailAndPassword(user.email, user.password);
 
     const token = await auth.user.getIdToken();
+    console.info(`the token is ${token}`);
     return response.json({ token });
   } catch (error) {
     console.error(error);
@@ -151,86 +155,6 @@ exports.uploadProfilePhoto = (request, response) => {
   });
   busboy.end(request.rawBody);
 };
-
-// createFileStream = (busboy, request, response) => {
-//   const path = require('path');
-//   const os = require('os');
-//   const fs = require('fs');
-//   let imageFileName;
-//   let imageToBeUploaded = {};
-//   try {
-//     busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-//       if (mimetype !== 'image/png' && mimetype !== 'image/jpeg') {
-//         return response.status(400).json({ error: 'Wrong file type submited' });
-//       }
-//       const imageExtension = filename.split('.')[
-//         filename.split('.').length - 1
-//       ];
-//       imageFileName = `${request.user.username}.${imageExtension}`;
-//       const filePath = path.join(os.tmpdir(), imageFileName);
-//       imageToBeUploaded = { filePath, mimetype };
-//       file.pipe(fs.createWriteStream(filePath));
-//     });
-//     return [imageFileName, imageToBeUploaded];
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// uploadPhotoToStorage = (
-//   busboy,
-//   imageFileName,
-//   imageToBeUploaded,
-//   request,
-//   response
-// ) => {
-//   busboy.on('finish', () => {
-//     admin
-//       .storage()
-//       .bucket()
-//       .upload(imageToBeUploaded.filePath, {
-//         resumable: false,
-//         metadata: {
-//           metadata: {
-//             contentType: imageToBeUploaded.mimetype,
-//           },
-//         },
-//       })
-//       .then(() => {
-//         const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
-//         return db.doc(`/users/${request.user.username}`).update({
-//           imageUrl,
-//         });
-//       })
-//       .then(() => {
-//         return response.json({ message: 'Image uploaded successfully' });
-//       })
-//       .catch(error => {
-//         console.error(error);
-//         return response.status(500).json({ error: error.code });
-//       });
-//     busboy.end(request.rawBody);
-//   });
-// };
-
-// // Upload profile picture
-// exports.uploadProfilePhoto = (request, response) => {
-//   const BusBoy = require('busboy');
-//   const busboy = new BusBoy({ headers: request.headers });
-//   [imageFileName, imageToBeUploaded] = createFileStream(
-//     busboy,
-//     request,
-//     response
-//   );
-//   deleteImage(imageFileName);
-//   uploadPhotoToStorage(
-//     busboy,
-//     imageFileName,
-//     imageToBeUploaded,
-//     request,
-//     response
-//   );
-// };
 
 exports.getUserDetail = async (request, response) => {
   let userData = {};

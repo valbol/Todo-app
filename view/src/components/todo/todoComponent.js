@@ -180,11 +180,18 @@ const TodoComponent = props => {
                 // raised
                 variant='outlined'
               >
-                <CardContent
-                  title={todo.title}
-                  subheader={dayjs(todo.createdAt).fromNow()}
-                ></CardContent>
                 <CardContent>
+                  <Typography color='textSecondary' gutterBottom variant='h4'>
+                    {todo.title}
+                  </Typography>
+                  <Typography
+                    color='textSecondary'
+                    gutterBottom
+                    variant='subtitle1'
+                  >
+                    {dayjs(todo.createdAt).fromNow()}
+                  </Typography>
+
                   <Typography variant='h6' component='p'>
                     {`${todo.body.substring(0, 65)}`}
                   </Typography>

@@ -136,7 +136,14 @@ const HomeComponent = props => {
             {itemsList.map(item => {
               const { text, icon, operation } = item;
               return (
-                <ListItem button key={text} onClick={operation}>
+                <ListItem
+                  button
+                  key={text}
+                  onClick={() => {
+                    handleDrawerClose();
+                    operation();
+                  }}
+                >
                   <ListItemIcon>{icon && icon}</ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItem>
